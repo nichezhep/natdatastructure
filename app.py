@@ -57,10 +57,12 @@ def simple_queue():
     for i in QueueSpitter.active_queue.array:
         queue.append(i)
 
-    return 'Current queue is ' + str(queue) + \
-           ', Current front number is ' + str(QueueSpitter.active_queue.array[front])\
-           + ', Current rear index is ' + str(QueueSpitter.active_queue.rear-1)\
-           + ', Current rear element is ' + str(QueueSpitter.active_queue.array[rear-1])
+    # return 'Current queue is ' + str(queue) + \
+    #        ', Current front number is ' + str(QueueSpitter.active_queue.array[front])\
+    #        + ', Current rear index is ' + str(QueueSpitter.active_queue.rear-1)\
+    #        + ', Current rear element is ' + str(QueueSpitter.active_queue.array[rear-1])
+
+    return render_template('queue_viewer.html', queue=str(queue), front_indx=front)
 
 
 @app.route('/simple_queue/create')
