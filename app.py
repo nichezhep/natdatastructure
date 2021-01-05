@@ -43,12 +43,6 @@ def simple_stack_length():
     return str(len(StackSpitter.active_stack))
 
 
-@app.route('/simple_stack/push/<item>')
-def simple_stack_push(item):
-
-    StackSpitter.active_stack.push(int(item))
-
-    return redirect(url_for('simple_stack'))
 
 if __name__ == '__main__':
     app.run()
