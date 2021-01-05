@@ -45,13 +45,9 @@ class SimpleStackStarter:
 
         return self.stack.pop()
 
-    def push(self):
+    def push(self, item):
 
-        for i in self.stack():
-
-            self.stack.append(i)
-
-        return self.stack
+            self.stack.append(item)
 
     def reveal(self):
 
