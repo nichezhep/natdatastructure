@@ -32,9 +32,9 @@ def simple_stack_url():
 @app.route('/simple_stack/pop')
 def simple_stack_pop():
 
-    StackSpitter.active_stack.pop()
+    item = StackSpitter.active_stack.pop()
 
-    return redirect(url_for('simple_stack'))
+    return render_template('front.html', item=item)
 
 
 @app.route('/simple_stack/length')
@@ -46,8 +46,9 @@ def simple_stack_length():
 @app.route('/simple_stack/push/<item>')
 def simple_stack_push(item):
 
-    return item
+    StackSpitter.active_stack.push(int(item))
 
+    return redirect(url_for('simple_stack'))
 
 if __name__ == '__main__':
     app.run()
