@@ -41,7 +41,9 @@ def simple_stack_pop():
 @app.route('/simple_stack/length')
 def simple_stack_length():
 
-    return str(len(StackSpitter.active_stack))
+    length = str(len(StackSpitter.active_stack))
+
+    return render_template('front.html', length=length)
 
 
 @app.route('/simple_queue')
@@ -49,7 +51,16 @@ def simple_queue():
 
     front = QueueSpitter.active_queue.front
 
-    return str(front) + ', Current front number is ' + str(QueueSpitter.active_queue.array[front])
+    rear = QueueSpitter.active_queue.rear
+
+    queue = []
+    for i in QueueSpitter.active_queue.array:
+        queue.append(i)
+
+    return 'Current queue is ' + str(queue) + \
+           ', Current front number is ' + str(QueueSpitter.active_queue.array[front])\
+           + ', Current rear index is ' + str(QueueSpitter.active_queue.rear-1)\
+           + ', Current rear element is ' + str(QueueSpitter.active_queue.array[rear-1])
 
 
 @app.route('/simple_queue/create')
@@ -60,9 +71,28 @@ def simple_queue_create():
     return redirect(url_for('simple_queue'))
 
 
+@app.route('/simple_queue/serve')
+def simple_queue_serve():
+
+    item = QueueSpitter.active_queue.serve()
+
+    return str(item)
 
 
+@app.route('/simple_queue/append/<item>')
+def simple_queue_append(item):
 
+    QueueSpitter.active_queue.append(int(item))
+
+    return redirect(url_for('simple_queue'))
+
+
+@app.route('/simple_queue/rear')
+def simple_queue_rear():
+
+    rear = str(QueueSpitter.active_queue.rear)
+
+    return render_template('front.html', rear=rear)
 
 if __name__ == '__main__':
     app.run()
