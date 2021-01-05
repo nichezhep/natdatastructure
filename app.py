@@ -21,12 +21,25 @@ def simple_stack():
 
 
 
-@app.route('/start_simple_stack')
+@app.route('/simple_stack/create')
 def simple_stack_url():
 
     stack = StackSpitter.make_stack(elems=5)
 
     return redirect(url_for('simple_stack'))
+
+
+@app.route('/simple_stack/pop')
+def simple_stack_pop():
+
+    StackSpitter.active_stack.pop()
+
+    return redirect(url_for('simple_stack'))
+
+@app.route('/simple_stack/length')
+def simple_stack_length():
+
+    return str(len(StackSpitter.active_stack))
 
 
 if __name__ == '__main__':
