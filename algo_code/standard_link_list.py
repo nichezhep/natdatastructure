@@ -84,6 +84,8 @@ class LinkedList:
     def remove(self, index):
         pass
 
+    # TODO Create a copy function to copy the LinkedList (THIS QUESTION IS VERY DIFFICULT IN EXAM)
+
 
 if __name__ == '__main__':
     ll = LinkedList()
