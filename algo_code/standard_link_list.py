@@ -76,6 +76,12 @@ class LinkedList:
 
         print(llstr)
 
+    def __iter__(self):
+        node = self.head
+        while node is not None:
+            yield node
+            node = node.next
+
     # TODO Create a function to find the length of the Linked List
     def __len__(self):
 
@@ -137,9 +143,10 @@ class LinkedList:
         return new_node
 
 
-if __name__ == '__main__':
-    ll = LinkedList()
-    ll.insert_values(["Welcome", "To"])
-    ll.reveal()
-    b = ll.aux_copy()
-    b.reveal()
+# if __name__ == '__main__':
+#     ll = LinkedList()
+#     ll.insert_values(["Welcome", "To"])
+#     ll.reveal()
+#     b = ll.aux_copy()
+#     for node in b:
+#         print(node.data)

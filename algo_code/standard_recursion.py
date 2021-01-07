@@ -93,4 +93,62 @@ def lazy_delivery(locations):
 
 # TODO: Draw a graph to represent how this work and how it using flask.
 
+# Exam Question
+
+
+def has_next(a_list, current_index):
+    try:
+        a_list[current_index + 1]
+    except IndexError:
+        return False
+    return True
+
+
+def set_item(some_list, index, item):
+
+    some_list[index] = item
+
+
+# Badly implemented Zeroed
+def zeroed(a_list):
+    try:
+        count = 0
+        while has_next(a_list, count):
+
+            if a_list[count] < 0:
+                set_item(a_list, count + 1, 0)
+            count += 1
+    except IndexError:
+        print("STOP ITERATION ERROR!!!")
+        pass
+
+
+# Recursive Zeroed
+def zeroed_res(some_list):
+    zeroed_aux(some_list, 0)
+
+
+def zeroed_aux(some_list, index):
+
+    try:
+        if some_list[index] < 0:
+            set_item(some_list, index, 0)
+            index += 1
+        else:
+            index += 1
+        zeroed_aux(some_list, index)
+    except IndexError:
+        print("STOP ITERATION ERROR!!!")
+        pass
+
+
+if __name__ == '__main__':
+    a_list = [-1, 2, 3, -4, 5, -6, -1, -1, -1, -1, -1, -1]
+    zeroed_res(a_list)
+    print(a_list)
+
+
+
+
+
 
