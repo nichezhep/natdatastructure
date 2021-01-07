@@ -78,16 +78,89 @@ class LinkedList:
 
     # TODO Create a function to find the length of the Linked List
     def __len__(self):
-        pass
+
+        temp = self.head
+        count = 0
+        while temp:
+            count += 1
+            temp = temp.next
+        return count
+
     # TODO Create a remove function to remove an element at a given index. What is the time complexity for this?
 
     def remove(self, index):
-        pass
 
+        count = 0
+        temp = self.head
+
+        while temp.next is not None:
+            if count == index-1:
+                temp.next = temp.next.next
+                break
+            temp = temp.next
+            count += 1
     # TODO Create a copy function to copy the LinkedList (THIS QUESTION IS VERY DIFFICULT IN EXAM)
 
+    def copy(self):
+
+        copy = LinkedList()
+        temp = self.head
+        current_copy = None
+        while temp is not None:
+            if current_copy is None:
+                copy.head = Node(temp.data)
+                current_copy = copy.head
+            else:
+                current_copy.next = Node(temp.data)
+                current_copy = current_copy.next
+            temp = temp.next
+
+
+    def fake_copy(self):
+
+        copy = LinkedList()
+        temp = self.head
+        current_copy = None
+        while temp is not None:
+            if current_copy is None:
+                copy.head = temp
+                current_copy = copy.head
+            temp = temp.next
+        return copy
 
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.insert_values(["Welcome", "To", "LinkedList"])
+    ll.insert_values(["Welcome", "To", "LinkedList", "Hello"])
+    # ll.reveal()
+    # print(ll.__len__())
+    # ll.remove(1)
+    # ll.reveal()
+
+    # i = [1, 2, 3]
+    # i_new = i
+    # i_new.append(2)
+    # print(i)
+
+    ll_2 = ll.fake_copy()
+
     ll.reveal()
+    ll_2.reveal()
+
+    ll.insert_at_end(99)
+
+    ll.reveal()
+    ll_2.reveal()
+
+
+def mystery(self):
+    while (self.head is not None and self.head.item < 0):
+        self.head = self.head.link
+        if self.head is not None:
+            current = self.head
+            next = self.head.link
+            while next is not None:
+                if next.item < 0:
+                    current.link = next.link
+                else:
+                    current = next
+                next = next.link
