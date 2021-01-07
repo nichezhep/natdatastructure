@@ -115,52 +115,31 @@ class LinkedList:
                 current_copy = current_copy.next
             temp = temp.next
 
+    # TODO: Recursively copy the list :)
 
-    def fake_copy(self):
+    def aux_copy(self):
 
         copy = LinkedList()
-        temp = self.head
-        current_copy = None
-        while temp is not None:
-            if current_copy is None:
-                copy.head = temp
-                current_copy = copy.head
-            temp = temp.next
+        copy.head = self.res_copy(self.head)
+
         return copy
+
+    def res_copy(self, head):
+
+        if head is None:
+
+            return head
+
+        new_node = Node(head.data)
+
+        new_node.next = self.res_copy(head.next)
+
+        return new_node
+
 
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.insert_values(["Welcome", "To", "LinkedList", "Hello"])
-    # ll.reveal()
-    # print(ll.__len__())
-    # ll.remove(1)
-    # ll.reveal()
-
-    # i = [1, 2, 3]
-    # i_new = i
-    # i_new.append(2)
-    # print(i)
-
-    ll_2 = ll.fake_copy()
-
+    ll.insert_values(["Welcome", "To"])
     ll.reveal()
-    ll_2.reveal()
-
-    ll.insert_at_end(99)
-
-    ll.reveal()
-    ll_2.reveal()
-
-
-def mystery(self):
-    while (self.head is not None and self.head.item < 0):
-        self.head = self.head.link
-        if self.head is not None:
-            current = self.head
-            next = self.head.link
-            while next is not None:
-                if next.item < 0:
-                    current.link = next.link
-                else:
-                    current = next
-                next = next.link
+    b = ll.aux_copy()
+    b.reveal()

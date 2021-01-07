@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from algo_code.simple_stack import StackSpitter
 from algo_code.simple_queue import QueueSpitter
+from algo_code.standard_recursion import fact
 app = Flask(__name__)
 
 
@@ -95,6 +96,15 @@ def simple_queue_rear():
     rear = str(QueueSpitter.active_queue.rear)
 
     return render_template('front.html', rear=rear)
+
+
+@app.route('/recursion')
+def test_recursionl():
+
+    result_a = fact(5)
+
+    return render_template('recursion_results.html', result_a=str(result_a))
+
 
 if __name__ == '__main__':
     app.run()
