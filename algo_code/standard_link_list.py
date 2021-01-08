@@ -124,29 +124,26 @@ class LinkedList:
     # TODO: Recursively copy the list :)
 
     def aux_copy(self):
-
         copy = LinkedList()
-        copy.head = self.res_copy(self.head)
 
+        copy.head = self.copy_rec(self.head)
         return copy
 
-    def res_copy(self, head):
+    def copy_rec(self, head):
 
+        # base case
         if head is None:
-
             return head
 
-        new_node = Node(head.data)
-
-        new_node.next = self.res_copy(head.next)
-
-        return new_node
+        node = Node(head.data)
+        node.next = self.copy_rec(head.next)
+        return node
 
 
-# if __name__ == '__main__':
-#     ll = LinkedList()
-#     ll.insert_values(["Welcome", "To"])
-#     ll.reveal()
-#     b = ll.aux_copy()
-#     for node in b:
-#         print(node.data)
+if __name__ == '__main__':
+    ll = LinkedList()
+    ll.insert_values(["Welcome", "To"])
+    ll.reveal()
+    b = ll.aux_copy()
+    b.reveal()
+
