@@ -124,50 +124,52 @@ def zeroed(a_list):
         print("STOP ITERATION ERROR!!!")
         pass
 
-# # Recursive Zeroed
-# def aux_zeroed(a_list):
-#     index = 0
-#     res_zeroed(a_list, index)
-#     return a_list
-#
-# def res_zeroed(a_list, index):
-#
-#     # base case
-#     if not has_next(a_list, index):
-#
-#         if a_list[index] < 0:
-#             set_item(a_list, index, 0)
-#         return
-#
-#     if a_list[index] < 0:
-#         set_item(a_list, index, 0)
-#     index += 1
-#     res_zeroed(a_list, index)
 
-
-def zeroed(a_list):
-    it = iter(a_list)
-    while has_next(it):
-        item = next(it)
-        if item < 0:
-            set_item(it,0)
-
-
+# Recursive Zeroed
 def aux_zeroed(a_list):
-    it = iter(a_list)
-    res_zeroed(it)
+    index = 0
+    res_zeroed(a_list, index)
+    return a_list
 
-def res_zeroed(it):
 
-    if not has_next(it):
+def res_zeroed(a_list, index):
+
+    # base case
+    if not has_next(a_list, index):
+
+        if a_list[index] < 0:
+            set_item(a_list, index, 0)
         return
 
-    item = peek(it)
-    if item < 0:
-        set_item(it, 0)
-    else:
-        next(it)
-    res_zeroed(it)
+    if a_list[index] < 0:
+        set_item(a_list, index, 0)
+    index += 1
+    res_zeroed(a_list, index)
+
+
+# def zeroed(a_list):
+#     it = iter(a_list)
+#     while has_next(it):
+#         item = next(it)
+#         if item < 0:
+#             set_item(it,0)
+#
+#
+# def aux_zeroed(a_list):
+#     it = iter(a_list)
+#     res_zeroed(it)
+#
+# def res_zeroed(it):
+#
+#     if not has_next(it):
+#         return
+#
+#     item = peek(it)
+#     if item < 0:
+#         set_item(it, 0)
+#     else:
+#         next(it)
+#     res_zeroed(it)
 
 if __name__ == '__main__':
     a_list = [-1, 2, 3, -4]

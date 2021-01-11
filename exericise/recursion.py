@@ -33,6 +33,26 @@ def has_next(some_list, index):
 # TODO: Create a recursive function to sum all of the number in the list.
 
 
+def aux_sum_all(some_list):
+    sum_number = 0
+    index = 0
+    res_sum_all(some_list, sum_number, index)
+
+
+def res_sum_all(some_list, sum_number, index):
+
+    # base case
+    if not has_next(some_list, index):
+        return None
+
+    else:
+        index = 0
+        sum_number += index
+        index += 1
+        res_sum_all(some_list[index], sum_number, index)
+    return sum_number
+
+
 """
 
     Here are exercises for recursion, you will need to transform iterative functions into recursive function.
@@ -80,11 +100,45 @@ def binary_search(a_list, number):
     return None
 
 
+def aux_binary_search(a_list, number):
+    number = number
+    left = 0
+    right = len(a_list) - 1
+    res_binary_search(a_list, left, right, number)
+    return
+
+
+def res_binary_search(a_list, left, right, number):
+
+    # base case
+    if left >= right:
+        return None
+
+    # Search the mid point to compare with key value.
+    mid = (left + right) // 2
+
+    # key value is found, return an index
+    if number == a_list[mid]:
+        return mid
+
+    # discard all elements in the right search space
+    # including the mid element
+    if number < a_list[mid]:
+        return res_binary_search(a_list, left, mid - 1, number)
+
+    # discard all elements in the left search space
+    # including the mid element
+    else:
+        return res_binary_search(a_list, mid + 1, right, number)
+
+
 if __name__ == '__main__':
 
     sorted_list = [1, 3, 5, 7, 9, 12]
 
     print(sum_all(sorted_list))
+
+    # print(aux_sum_all(sorted_list))
 
     if binary_search(sorted_list, 7) is not None:
 
@@ -94,3 +148,10 @@ if __name__ == '__main__':
 
         print("The number is not founded")
 
+    if aux_binary_search(sorted_list, 7) is not None:
+
+        print("The number is founded.")
+
+    else:
+
+        print("The number is not founded.")
