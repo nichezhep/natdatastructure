@@ -81,3 +81,23 @@ class Queue:
         return ans
 
 
+q = Queue(3)
+
+q.append(1)
+q.append(2)
+q.append(3)
+
+print(q.array)
+
+print(q.serve())
+
+q.append(4)
+
+print(q.array)
+print(q.front)
+
+q.append(5)
+
+print(q.array)
+
+
