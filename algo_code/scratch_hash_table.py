@@ -21,11 +21,65 @@ class SampleHashTable:
         while SampleHashTable.PRIMES[self.next_prime] <= table_size:
             self.next_prime += 1
 
+    def __getitem__(self, key):
+
+        position = self.linear_probe(key, False)
+
+        return self.table[position][1]
+
     def __setitem__(self, key, data):
 
-        position = hash(key)
+        try:
+            position = self.linear_probe(key, True)
 
-        self.table = (key, data)
+        except KeyError:
+            self.rehash()
+            self.__setitem__(key, data)
+
+        else:
+            self.table[position] = (key, data)
+            self.count += 1
+
+    def __len__(self):
+
+        return len(self.table)
+
+    def is_full(self):
+
+        return self.count == len(self.table)
+
+    def insert(self, key, data):
+
+        self[key] = data
+
+    def linear_probe(self, key, is_insert):
+
+        position = self.hash(key)
+
+        if is_insert is True and self.is_full():
+            raise KeyError("Table is full")
+
+        for i in range(0, len(self.table)):
+
+            if self.table[position] is None:
+                return position
+            elif self.table[position][0] == key:
+                if is_insert is True:
+                    raise KeyError("The key is already in the table")
+                else:
+                    return position
+            else:
+                position = (position + 1) % len(self.table)
+
+    def rehash(self):
+
+        temp = SampleHashTable.PRIMES[self.next_prime]
+        for i in range(len(self.table)):
+            temp[self.table[i][0]] = self.table[i][1]
+
+        self.count = temp.count
+        self.table = temp.table
+        self.next_prime += 1
 
     def hash(self, key: str) -> int:
         """
@@ -40,7 +94,23 @@ class SampleHashTable:
             a = a * SampleHashTable.DEFAULT_HASH_BASE % (len(self.table) - 1)
         return value
 
+    def __str__(self):
 
-a = SampleHashTable(20)
+        to_print = ""
+        for i in self.table:
+            if i is not None:
+                (key, value) = i
+                to_print = to_print + "Key: " + key + ", Value: " + value
+        return to_print
 
-print(a.hash("Aho"))
+
+a = SampleHashTable(2)
+
+a["Dog"] = "50 kg"
+a["Dog2"] = "60 kg"
+
+print(a.table)
+print(a["Dog2"])
+print(len(a))
+print(a)
+
