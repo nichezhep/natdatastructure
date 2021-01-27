@@ -29,11 +29,16 @@ class SampleHashTable:
 
     def __setitem__(self, key, data):
 
-        position = self.linear_probe(key, True)
+        try:
+            position = self.linear_probe(key, True)
 
-        self.table[position] = (key, data)
+        except KeyError:
+            self.rehash()
+            self.__setitem__(key, data)
 
-        self.count += 1
+        else:
+            self.table[position] = (key, data)
+            self.count += 1
 
     def __len__(self):
 
@@ -65,6 +70,16 @@ class SampleHashTable:
                     return position
             else:
                 position = (position + 1) % len(self.table)
+
+    def rehash(self):
+
+        temp = SampleHashTable.PRIMES[self.next_prime]
+        for i in range(len(self.table)):
+            temp[self.table[i][0]] = self.table[i][1]
+
+        self.count = temp.count
+        self.table = temp.table
+        self.next_prime += 1
 
     def hash(self, key: str) -> int:
         """

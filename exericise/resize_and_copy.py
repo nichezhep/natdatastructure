@@ -33,27 +33,20 @@ class Queue:
         self.rear = (self.rear + 1) % len(self.array)
         self.count += 1
 
-    def __resize__ ( self ):
-        # Step 1 - Create Temporary Array
-        temp_array = build_array(len(self.array) * 2)
-        # Step 2 - Define iterative means for real array
+    def __resize__ (self):
+
+        temp = build_array(len(self.array) * 2)
         index = self.front
-        # Step 3 - Define iterative means for temp array
-        index_new_array = 0
-        # Step 4 - For Loop
-        for _ in range(self.count):
-            # As of queue, we do not care about what is already out, we only care about what's in front
-            temp_array[index_new_array] = self.array[index]
-            # Iterate index through a circular queue
+
+        for i in range(len(self.array)):
+            print(self.array[index])
+            temp[i] = self.array[index]
             index = (index + 1) % len(self.array)
-            # Iterate temp index to the next one
-            index_new_array += 1
-        # Set front
+
         self.front = 0
-        # Set rear
-        self.rear = len(self.array)
-        self.array = temp_array
-        self.capacity = len(self.array)
+        self.rear = self.count
+        self.array = temp
+        self.capacity = len(temp)
 
     def serve(self):
 
@@ -69,15 +62,23 @@ class Queue:
         return item
 
     def __str__(self):
-        # Define where front is
+
+        result = ""
+
         index = self.front
 
-        ans = " "
-
         for _ in range(self.count):
-            ans += (str(self.array[index]) + ' , ')
+            result = result + str(self.array[index]) + ", "
             index = (index + 1) % len(self.array)
 
-        return ans
+        return result
 
+
+queue = Queue(2)
+
+queue.append(1)
+queue.append(2)
+queue.serve()
+
+print(queue)
 
