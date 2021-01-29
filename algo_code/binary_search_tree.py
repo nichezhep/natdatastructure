@@ -89,6 +89,24 @@ class BinaryTree:
         else:
             return True
 
+    def get_max(self):
+
+        if self.root is None:
+            raise ValueError("Heap is empty")
+        elif self.root.right is None:
+            temp = self.root.item
+            self.root = self.root.left
+            return temp
+        else:
+            return self.get_max_aux(self.root.right, self.root)
+
+    def get_max_aux(self, current, parent):
+        if current.right is None:
+            parent.right = current.left
+            return current.item
+        else:
+            return self.get_max_aux(current.right, current)
+
 
 def show_item(current):
 
@@ -97,13 +115,11 @@ def show_item(current):
 tree = BinaryTree()
 tree.insert(10)
 tree.insert(2)
-tree.insert(1)
-tree.insert(9)
-tree.insert(11)
-tree.insert(13)
-tree.insert(12)
-tree.insert(14)
-tree.insert(15)
+# tree.insert(15)
+# tree.insert(11)
+# tree.insert(19)
+# tree.insert(16)
 
-tree.postorder(show_item)
-print(tree.is_balance())
+print(tree.get_max())
+
+tree.inorder(show_item)
