@@ -69,6 +69,94 @@ class StandardLinearQueue:
         return data
 
 
+class MysteryQueue:
+    def __init__(self, capacity):
+        self.storage = [None] * capacity
+        self.size = 0
+        self.front = 0
+        self.rear = 0
+        self.capacity = capacity
+
+    def __len__(self):
+
+        return self.size
+
+    # Return if Queue is full or not
+    def isFull(self):
+        return self.capacity == self.size
+
+    # Append element into a queue
+    def enqueue(self, data):
+        if self.isFull():
+            raise  Exception("Queue is Full")
+
+        self.storage[self.rear] = data
+        self.rear += 1
+        self.size += 1
+
+    # Dequeue --> Pop element from the queue
+    def dequeue(self):
+
+        if self.rear == 0:
+            return None
+        data = self.storage[self.front]
+        self.front += 1
+
+        if self.front == self.rear:
+            self.front = 0
+            self.rear = 0
+
+        self.size -= 1
+        return data
+
+    def copy_iteration(self):
+
+        temp_queue = MysteryQueue(self.capacity)
+
+        index = self.front
+
+        for _ in range(0, self.size):
+
+            temp_queue.enqueue(self.storage[index])
+
+            index += 1
+
+        return temp_queue
+
+    def copy_recursion(self):
+
+        temp_queue = MysteryQueue(self.capacity)
+
+        return self.copy_recursion_aux(temp_queue, self.front)
+
+    def copy_recursion_aux(self, queue, front_index):
+
+        if front_index == self.rear:
+
+            return queue
+
+        else:
+
+            queue.enqueue(self.storage[front_index])
+
+            return self.copy_recursion_aux(queue, front_index + 1)
+
+
+
+q = MysteryQueue(3)
+q.enqueue(3)
+q.enqueue(4)
+q.enqueue(5)
+q.dequeue()
+
+q2 = q.copy_recursion()
+
+print(q2.storage)
+
+print(q.storage)
+
+print(q.dequeue())
+print(q2.dequeue())
 """ 
 
     A circular queue is a memory friendly version of LinearQueue where modular is used to define the position of 

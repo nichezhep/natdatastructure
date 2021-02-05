@@ -107,6 +107,127 @@ class BinaryTree:
         else:
             return self.get_max_aux(current.right, current)
 
+    def sum_all(self):
+
+        return self.sum_all_aux(self.root)
+
+    def sum_all_aux(self, current):
+
+        if current is None:
+
+            return 0
+
+        else:
+
+            sum_all_left = self.sum_all_aux(current.left)
+            sum_all_right = self.sum_all_aux(current.right)
+
+            sum_node = sum_all_left + sum_all_right
+
+            return sum_node + current.item
+
+    def sum_heq(self, item):
+        return self.sum_heq_aux(self.root, item)
+
+    def sum_heq_aux(self, current, item):
+        if current is None:
+            return 0
+        else:
+
+            high_sum = self.sum_heq_aux(current.right, item)
+
+            if current.item == item:
+                return high_sum + item
+            elif current.item > item:
+                return high_sum + current.item + self.sum_heq_aux(current.left, item)
+            else:
+                return high_sum
+
+    def sum_parents_tail(self, value):
+
+        return self.sum_parents_tail_aux(self.root, value, 0)
+
+    def sum_parents_tail_aux(self, current, value, acc):
+
+        if current is None:
+            return None
+        elif current.item == value:
+            return acc
+        else:
+            if current.item > value:
+                acc = acc + current.item
+                return self.sum_parents_tail_aux(current.left, value, acc)
+            else:
+                acc = acc + current.item
+                return self.sum_parents_tail_aux(current.right, value, acc)
+
+    def inorder_iteration(self):
+
+        stack = []
+
+        current = self.root
+
+        while True:
+
+            if current is not None:
+
+                stack.append(current)
+
+                current = current.left
+
+            elif stack:
+
+                current = stack.pop()
+
+                print(current.item)
+
+                current = current.right
+
+            else:
+
+                break
+
+    def peek(self, stack):
+        if len(stack) > 0:
+            return stack[-1] # -1 means last item on the list
+        return None
+
+    def postorder_iteration(self):
+
+        stack = []
+
+        current = self.root
+
+        while True:
+
+            while current:
+
+                if current.right is not None:
+
+                    stack.append(current.right)
+
+                stack.append(current)
+
+                current = current.left
+
+            current = stack.pop()
+
+            if current.right is not None and self.peek(stack) == current.right:
+                print("The current after pop is " + str(current.item))
+                item = stack.pop()
+                print("I have popped: " + str(item.item))
+                stack.append(current)
+                print("I append this back: " + str(current.item))
+                current = current.right
+                print("No current is " + str(current.item))
+            else:
+
+                print(current.item)
+                current = None
+
+            if len(stack) <= 0:
+                break
+
 
 def show_item(current):
 
@@ -114,12 +235,12 @@ def show_item(current):
 
 tree = BinaryTree()
 tree.insert(10)
+tree.insert(5)
+tree.insert(11)
 tree.insert(2)
-# tree.insert(15)
-# tree.insert(11)
-# tree.insert(19)
-# tree.insert(16)
+tree.insert(6)
 
-print(tree.get_max())
 
-tree.inorder(show_item)
+#tree.postorder(show_item)
+
+tree.postorder_iteration()
